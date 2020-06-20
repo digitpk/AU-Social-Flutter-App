@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1087767658886",
+    "firebase_url": "https://ausocial-c196a.firebaseio.com",
+    "project_id": "ausocial-c196a",
+    "storage_bucket": "ausocial-c196a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087767658886:android:e253b580c4f15de6abac07",
+        "android_client_info": {
+          "package_name": "com.blatz.ausocial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087767658886-b6b7p2p64dpbfgkquocp8jj09o270e33.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blatz.ausocial",
+            "certificate_hash": "91b21585553780a2206bd96168ce4372b159951b"
+          }
+        },
+        {
+          "client_id": "1087767658886-gr40is4e3v15mosvgmkn6l3040nd4s16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvGxqj2LMDEGJX0aPsYzy8nAI89sk3ipk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087767658886-gr40is4e3v15mosvgmkn6l3040nd4s16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
