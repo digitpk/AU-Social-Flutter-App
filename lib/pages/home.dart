@@ -2,11 +2,16 @@ import 'package:ausocial/constants.dart';
 import 'package:ausocial/pages/events.dart';
 import 'package:ausocial/pages/explore.dart';
 import 'package:ausocial/pages/stories.dart';
+import 'package:ausocial/widgets/fancy_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 final GoogleSignIn googleSignIn = GoogleSignIn();
+final userRef = Firestore.instance.collection('users');
+final DateTime timeStamp = DateTime.now();
 
 class Home extends StatefulWidget {
   @override
@@ -40,6 +45,7 @@ class _HomeState extends State<Home> {
   }
 
   void handleSignIn(GoogleSignInAccount account) {
+    createUserInFirestore();
     if (account != null) {
       print('User signed in : $account');
       setState(() {
@@ -48,6 +54,23 @@ class _HomeState extends State<Home> {
     } else {
       setState(() {
         isAuth = false;
+      });
+    }
+  }
+
+  createUserInFirestore() async {
+    final GoogleSignInAccount user = googleSignIn.currentUser;
+    final DocumentSnapshot doc = await userRef.document(user.id).get();
+
+    if (!doc.exists) {
+      userRef.document(user.id).setData({
+        "id": user.id,
+        "username": user.displayName,
+        "photoUrl": user.photoUrl,
+        "email": user.email,
+        "displayName": user.displayName,
+        "bio": "",
+        "timeStamp": timeStamp,
       });
     }
   }
@@ -77,7 +100,15 @@ class _HomeState extends State<Home> {
   Scaffold buildAuthScreen() {
     return Scaffold(
       body: PageView(
-        children: <Widget>[EventsPage(), ExplorePage(), StoriesPage()],
+        children: <Widget>[
+//          EventsPage(),
+          RaisedButton(
+            onPressed: logout,
+            child: Text('LogOut'),
+          ),
+          ExplorePage(),
+          StoriesPage(),
+        ],
         controller: pageController,
         onPageChanged: onPageChanged,
         physics: NeverScrollableScrollPhysics(),
@@ -86,7 +117,7 @@ class _HomeState extends State<Home> {
         currentIndex: pageIndex,
         onTap: onTap,
         backgroundColor: Color(primaryBlack),
-        activeColor: Color(primaryGreen),
+        activeColor: Color(primaryBlue),
         inactiveColor: Colors.white,
         items: [
           BottomNavigationBarItem(
@@ -109,71 +140,40 @@ class _HomeState extends State<Home> {
   Widget buildUnAuthScreen() {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                'assets/images/homeBG.jpg',
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 80.0),
+                child: Center(
+                  child: Text(
+                    'SOCI-AU',
+                    style: GoogleFonts.abel(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 60,
+                      color: Color(primaryBlue),
+                    ),
+                  ),
+                ),
               ),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 300.0, bottom: 200.0),
-                  child: Center(
-                    child: Text(
-                      'SOCIAU',
-                      style: TextStyle(
-                        fontFamily: 'Heaters',
-                        fontSize: 100,
-                        color: Colors.white,
-                      ),
-                    ),
+              Container(
+                margin: EdgeInsets.only(top: 60.0),
+                child: Image(
+                  image: AssetImage(
+                    'assets/images/homeBG.png',
                   ),
                 ),
-                Material(
-                  color: Colors.black12,
-                  child: Ink(
-                    width: 300,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                        color: Color(0xff6894bc),
-                      ),
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(30.0),
-                      onTap: login,
-                      splashColor: Color(0xff6894bc),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Image(
-                            image: AssetImage('assets/images/googleicon.png'),
-                            width: 50.0,
-                          ),
-                          SizedBox(
-                            width: 50.0,
-                          ),
-                          Text(
-                            'Sign in with Google',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 28.0,
-                              fontFamily: 'Heaters',
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 80),
+                child: FancyButton(
+                  label: 'Sign in with Google',
+                  onPress: login,
+                  color: Color(primaryBlue),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

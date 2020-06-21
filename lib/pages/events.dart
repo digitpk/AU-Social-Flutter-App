@@ -31,7 +31,7 @@ class EventsPage extends StatelessWidget {
                       icon: Icon(
                         Icons.add_circle_outline,
                         size: 28,
-                        color: Color(primaryGreen),
+                        color: Color(primaryBlue),
                       ),
                     ),
                   ],

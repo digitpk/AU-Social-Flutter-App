@@ -7,7 +7,7 @@ Container circularProgress() {
     padding: EdgeInsets.only(top: 10.0),
     child: CircularProgressIndicator(
       valueColor: AlwaysStoppedAnimation(
-        Color(primaryGreen),
+        Color(primaryBlue),
       ),
     ),
   );
@@ -18,7 +18,7 @@ Container linearProgress() {
     padding: EdgeInsets.only(bottom: 5.0),
     child: LinearProgressIndicator(
       valueColor: AlwaysStoppedAnimation(
-        Color(primaryGreen),
+        Color(primaryBlue),
       ),
     ),
   );

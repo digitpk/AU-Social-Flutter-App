@@ -1,8 +1,8 @@
 import 'package:ausocial/pages/home.dart';
 import 'package:flutter/material.dart';
 
-///Added Home page for Signing in with Google account
-///need to Start with main page
+///Changed UI and added user details to database
+///Need to design Event page and start working with its functions
 
 void main() {
   runApp(MyApp());
