@@ -1,3 +1,8 @@
+import 'package:ausocial/constants.dart';
+import 'package:ausocial/pages/events.dart';
+import 'package:ausocial/pages/explore.dart';
+import 'package:ausocial/pages/stories.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -10,10 +15,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool isAuth = false;
+  PageController pageController;
+  int pageIndex = 0;
 
   @override
   void initState() {
     super.initState();
+    pageController = PageController();
     googleSignIn.onCurrentUserChanged.listen(
       (account) {
         handleSignIn(account);
@@ -52,10 +60,45 @@ class _HomeState extends State<Home> {
     googleSignIn.signOut();
   }
 
-  Widget buildAuthScreen() {
-    return RaisedButton(
-      onPressed: logout,
-      child: Text('logout'),
+  onPageChanged(int pageIndex) {
+    setState(() {
+      this.pageIndex = pageIndex;
+    });
+  }
+
+  onTap(int pageIndex) {
+    pageController.jumpToPage(pageIndex);
+  }
+
+  Scaffold buildAuthScreen() {
+    return Scaffold(
+      body: PageView(
+        children: <Widget>[EventsPage(), ExplorePage(), StoriesPage()],
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        physics: NeverScrollableScrollPhysics(),
+      ),
+      bottomNavigationBar: CupertinoTabBar(
+        currentIndex: pageIndex,
+        onTap: onTap,
+        backgroundColor: Color(primaryBlack),
+        activeColor: Color(primaryGreen),
+        inactiveColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+              size: 35.0,
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+          ),
+        ],
+      ),
     );
   }
 
