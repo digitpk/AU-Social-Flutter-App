@@ -121,9 +121,15 @@ class _HomeState extends State<Home> {
         currentIndex: pageIndex,
         onPositionChanged: onTap,
         snakeColor: Color(primaryBlue),
+        showUnselectedLabels: false,
+        showSelectedLabels: false,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(SimpleLineIcons.event),
+            icon: Icon(
+              SimpleLineIcons.event,
+              color: Colors.white,
+              size: 20.0,
+            ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -132,7 +138,11 @@ class _HomeState extends State<Home> {
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(AntDesign.smileo),
+            icon: Icon(
+              AntDesign.smileo,
+              size: 20.0,
+              color: Colors.white,
+            ),
           ),
         ],
       ),

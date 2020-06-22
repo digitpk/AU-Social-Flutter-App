@@ -1,4 +1,5 @@
 import 'package:ausocial/constants.dart';
+import 'package:ausocial/pages/add_events.dart';
 import 'package:ausocial/pages/home.dart';
 import 'package:flutter/material.dart';
 
@@ -27,20 +28,31 @@ class _EventsPageState extends State<EventsPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
-                      'Events',
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Text(
+                        'Events',
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.add_circle_outline,
-                        size: 28,
-                        color: Color(primaryBlue),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AddEvents()));
+                        },
+                        icon: Icon(
+                          Icons.add_circle_outline,
+                          size: 28,
+                          color: Color(primaryBlue),
+                        ),
                       ),
                     ),
                   ],
