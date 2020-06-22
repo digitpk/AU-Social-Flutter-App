@@ -1,4 +1,5 @@
 import 'package:ausocial/constants.dart';
+import 'package:ausocial/models/users.dart';
 import 'package:ausocial/pages/events.dart';
 import 'package:ausocial/pages/explore.dart';
 import 'package:ausocial/pages/stories.dart';
@@ -12,6 +13,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 final GoogleSignIn googleSignIn = GoogleSignIn();
 final userRef = Firestore.instance.collection('users');
 final DateTime timeStamp = DateTime.now();
+User currentUser;
 
 class Home extends StatefulWidget {
   @override
@@ -60,7 +62,7 @@ class _HomeState extends State<Home> {
 
   createUserInFirestore() async {
     final GoogleSignInAccount user = googleSignIn.currentUser;
-    final DocumentSnapshot doc = await userRef.document(user.id).get();
+    DocumentSnapshot doc = await userRef.document(user.id).get();
 
     if (!doc.exists) {
       userRef.document(user.id).setData({
@@ -72,7 +74,11 @@ class _HomeState extends State<Home> {
         "bio": "",
         "timeStamp": timeStamp,
       });
+      doc = await userRef.document(user.id).get();
     }
+    currentUser = User.fromDocument(doc);
+    print(currentUser);
+    print(currentUser.username);
   }
 
   void login() {
