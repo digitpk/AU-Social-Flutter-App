@@ -1,14 +1,23 @@
 import 'package:ausocial/constants.dart';
-import 'package:ausocial/widgets/progress.dart';
+import 'package:ausocial/pages/home.dart';
 import 'package:flutter/material.dart';
 
-class EventsPage extends StatelessWidget {
+class EventsPage extends StatefulWidget {
+  @override
+  _EventsPageState createState() => _EventsPageState();
+}
+
+class _EventsPageState extends State<EventsPage> {
+  logout() {
+    googleSignIn.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       bottom: false,
       child: Scaffold(
-        backgroundColor: Color(primaryBlack),
+        backgroundColor: Colors.white,
         body: Column(
           children: <Widget>[
             Padding(
@@ -23,7 +32,7 @@ class EventsPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                     ),
                     IconButton(
@@ -42,9 +51,14 @@ class EventsPage extends StatelessWidget {
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
-                color: Color(primaryBlack),
+                color: Colors.white,
                 child: ListView(
-                  children: <Widget>[],
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: logout,
+                      child: Text('LogOut'),
+                    ),
+                  ],
                 ),
               ),
             ),

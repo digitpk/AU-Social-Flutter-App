@@ -7,6 +7,8 @@ import 'package:ausocial/widgets/fancy_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -107,11 +109,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: PageView(
         children: <Widget>[
-//          EventsPage(),
-          RaisedButton(
-            onPressed: logout,
-            child: Text('LogOut'),
-          ),
+          EventsPage(),
           ExplorePage(),
           StoriesPage(),
         ],
@@ -119,24 +117,22 @@ class _HomeState extends State<Home> {
         onPageChanged: onPageChanged,
         physics: NeverScrollableScrollPhysics(),
       ),
-      bottomNavigationBar: CupertinoTabBar(
+      bottomNavigationBar: SnakeNavigationBar(
         currentIndex: pageIndex,
-        onTap: onTap,
-        backgroundColor: Color(primaryBlack),
-        activeColor: Color(primaryBlue),
-        inactiveColor: Colors.white,
+        onPositionChanged: onTap,
+        snakeColor: Color(primaryBlue),
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(SimpleLineIcons.event),
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.search,
+              AntDesign.search1,
               size: 35.0,
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: Icon(AntDesign.smileo),
           ),
         ],
       ),

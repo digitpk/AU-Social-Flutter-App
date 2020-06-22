@@ -5,7 +5,7 @@ class ExplorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(primaryBlack),
+      backgroundColor: Colors.white,
     );
   }
 }
