@@ -107,75 +107,24 @@ class _AddEventsState extends State<AddEvents> {
                           FormTitles(title: 'Choose date & time'),
                           Row(
                             children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: paddingLeft, top: 15.0),
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    height: 50.0,
-                                    width: 150.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(
-                                          FontAwesome.calendar_plus_o,
-                                          color: Color(primaryBlue),
-                                        ),
-                                        SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        Text(
-                                          'Select a date',
-                                          style: GoogleFonts.abel(
-                                            fontSize: 20.0,
-                                            color: Color(primaryBlue),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                              buildSelectionContainer(
+                                title: 'Select a date',
+                                onTapFunc: () {},
+                                icon: FontAwesome.calendar_plus_o,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: paddingLeft, top: 15.0),
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    height: 50.0,
-                                    width: 150.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(
-                                          MaterialIcons.access_time,
-                                          color: Color(primaryBlue),
-                                        ),
-                                        SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        Text(
-                                          'Select Time',
-                                          style: GoogleFonts.abel(
-                                            fontSize: 20.0,
-                                            color: Color(primaryBlue),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                              buildSelectionContainer(
+                                  title: 'Select Time',
+                                  onTapFunc: () {},
+                                  icon: MaterialIcons.access_time),
+                            ],
+                          ),
+                          FormTitles(title: 'Choose Venue'),
+                          Row(
+                            children: <Widget>[
+                              buildSelectionContainer(
+                                title: 'Get Location',
+                                onTapFunc: () {},
+                                icon: Octicons.location,
                               ),
                             ],
                           ),
@@ -187,6 +136,43 @@ class _AddEventsState extends State<AddEvents> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Padding buildSelectionContainer(
+      {String title, IconData icon, Function onTapFunc}) {
+    return Padding(
+      padding: const EdgeInsets.only(left: paddingLeft, top: 15.0),
+      child: GestureDetector(
+        onTap: onTapFunc,
+        child: Container(
+          height: 50.0,
+          width: 150.0,
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                icon,
+                color: Color(primaryBlue),
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Text(
+                '$title',
+                style: GoogleFonts.abel(
+                  fontSize: 20.0,
+                  color: Color(primaryBlue),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
