@@ -213,10 +213,10 @@ class _AddEventsState extends State<AddEvents> {
                                   borderRadius: BorderRadius.circular(
                                     15.0,
                                   ),
-                                  color: Colors.grey.withOpacity(0.1),
+                                  color: Colors.blue.withOpacity(0.1),
                                   border: Border.all(
                                     width: 0.5,
-                                    color: Colors.grey,
+                                    color: Colors.lightBlue,
                                   ),
                                 ),
                                 width: 350,
@@ -254,10 +254,10 @@ class _AddEventsState extends State<AddEvents> {
                                   borderRadius: BorderRadius.circular(
                                     15.0,
                                   ),
-                                  color: Colors.grey.withOpacity(0.1),
+                                  color: Colors.blue.withOpacity(0.1),
                                   border: Border.all(
                                     width: 0.5,
-                                    color: Colors.grey,
+                                    color: Colors.lightBlue,
                                   ),
                                 ),
                                 width: 350,
@@ -305,7 +305,7 @@ class _AddEventsState extends State<AddEvents> {
                                 ),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.withOpacity(0.1),
+                                    color: Colors.blue.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
                                   child: Padding(
@@ -343,10 +343,10 @@ class _AddEventsState extends State<AddEvents> {
                                 borderRadius: BorderRadius.circular(
                                   15.0,
                                 ),
-                                color: Colors.grey.withOpacity(0.1),
+                                color: Colors.blue.withOpacity(0.1),
                                 border: Border.all(
                                   width: 0.5,
-                                  color: Colors.grey,
+                                  color: Colors.lightBlue,
                                 ),
                               ),
                               width: 350,
@@ -385,7 +385,7 @@ class _AddEventsState extends State<AddEvents> {
                                     height: 50.0,
                                     width: 150.0,
                                     decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.1),
+                                      color: Colors.blue.withOpacity(0.1),
                                       borderRadius: BorderRadius.circular(15.0),
                                     ),
                                     child: Row(
@@ -436,7 +436,7 @@ class _AddEventsState extends State<AddEvents> {
           height: 50.0,
           width: 150.0,
           decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.blue.withOpacity(0.1),
             borderRadius: BorderRadius.circular(15.0),
           ),
           child: Row(
