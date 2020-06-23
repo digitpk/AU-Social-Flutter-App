@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 int primaryBlue = 0xff0070FF;
 int primaryBlack = 0xff1c1c1c;
+const double paddingLeft = 40.0;
 
 BoxShadow containerBoxShadow = BoxShadow(
   color: Colors.grey.withOpacity(0.2),

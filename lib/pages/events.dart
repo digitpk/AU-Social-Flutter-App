@@ -1,7 +1,9 @@
 import 'package:ausocial/constants.dart';
 import 'package:ausocial/pages/add_events.dart';
 import 'package:ausocial/pages/home.dart';
+import 'package:ausocial/widgets/fancy_button.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EventsPage extends StatefulWidget {
   @override
@@ -32,7 +34,7 @@ class _EventsPageState extends State<EventsPage> {
                       padding: const EdgeInsets.only(top: 20.0),
                       child: Text(
                         'Events',
-                        style: TextStyle(
+                        style: GoogleFonts.abel(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -66,9 +68,15 @@ class _EventsPageState extends State<EventsPage> {
                 color: Colors.white,
                 child: ListView(
                   children: <Widget>[
-                    RaisedButton(
-                      onPressed: logout,
-                      child: Text('LogOut'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        FancyButton(
+                          onPress: logout,
+                          label: 'LogOut',
+                          color: Color(primaryBlue),
+                        ),
+                      ],
                     ),
                   ],
                 ),
