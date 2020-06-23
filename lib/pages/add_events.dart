@@ -3,6 +3,7 @@ import 'package:ausocial/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddEvents extends StatefulWidget {
   @override
@@ -10,8 +11,10 @@ class AddEvents extends StatefulWidget {
 }
 
 class _AddEventsState extends State<AddEvents> {
+  PickedFile file;
+  final _picker = ImagePicker();
   String selectedDepartment = 'Information Science and Technology';
-  String eventTitle, eventDescription;
+  String eventTitle, eventDescription, contactInfo;
   List<DropdownMenuItem> getDropDownList() {
     List<DropdownMenuItem<String>> dropDownItems = [];
     for (int i = 0; i < departments.length; i++) {
@@ -37,6 +40,52 @@ class _AddEventsState extends State<AddEvents> {
       eventDescription = val;
     });
     print(eventDescription);
+  }
+
+  handleTakePhoto() async {
+    Navigator.pop(context);
+    PickedFile file = await _picker.getImage(
+      source: ImageSource.camera,
+      maxHeight: 675,
+      maxWidth: 960,
+    );
+    setState(() {
+      this.file = file;
+    });
+  }
+
+  handleChooseFromGallery() async {
+    Navigator.pop(context);
+    PickedFile file = await _picker.getImage(
+      source: ImageSource.gallery,
+    );
+    setState(() {
+      this.file = file;
+    });
+  }
+
+  selectImage(parentContext) {
+    return showDialog(
+        context: parentContext,
+        builder: (context) {
+          return SimpleDialog(
+            title: Text('Create Post'),
+            children: <Widget>[
+              SimpleDialogOption(
+                child: Text('Photo with Camera'),
+                onPressed: handleTakePhoto,
+              ),
+              SimpleDialogOption(
+                child: Text('Image from Gallery'),
+                onPressed: handleChooseFromGallery,
+              ),
+              SimpleDialogOption(
+                child: Text('Cancel'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -278,7 +327,11 @@ class _AddEventsState extends State<AddEvents> {
                                 child: TextFormField(
                                   keyboardType:
                                       TextInputType.numberWithOptions(),
-                                  onChanged: (val) {},
+                                  onChanged: (val) {
+                                    setState(() {
+                                      contactInfo = val;
+                                    });
+                                  },
                                   maxLines: 1,
                                   style: GoogleFonts.abel(
                                     fontSize: 20.0,
@@ -292,10 +345,41 @@ class _AddEventsState extends State<AddEvents> {
                           FormTitles(title: 'Choose Event Image'),
                           Row(
                             children: <Widget>[
-                              buildSelectionContainer(
-                                title: 'Add Image',
-                                icon: Feather.image,
-                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: paddingLeft, top: 15.0),
+                                child: GestureDetector(
+                                  onTap: () => selectImage(context),
+                                  child: Container(
+                                    height: 50.0,
+                                    width: 150.0,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(
+                                          Feather.image,
+                                          color: Color(primaryBlue),
+                                        ),
+                                        SizedBox(
+                                          width: 10.0,
+                                        ),
+                                        Text(
+                                          'Add Image',
+                                          style: GoogleFonts.abel(
+                                            fontSize: 20.0,
+                                            color: Color(primaryBlue),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         ],
