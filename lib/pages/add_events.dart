@@ -1,4 +1,5 @@
 import 'package:ausocial/constants.dart';
+import 'package:ausocial/models/users.dart';
 import 'package:ausocial/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -6,11 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddEvents extends StatefulWidget {
+  final User currentUser;
+  AddEvents({this.currentUser});
   @override
   _AddEventsState createState() => _AddEventsState();
 }
 
 class _AddEventsState extends State<AddEvents> {
+  DateTime eventDate = DateTime.now();
   PickedFile file;
   final _picker = ImagePicker();
   String selectedDepartment = 'Information Science and Technology';
@@ -26,6 +30,19 @@ class _AddEventsState extends State<AddEvents> {
       dropDownItems.add(newItem);
     }
     return dropDownItems;
+  }
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: eventDate,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2100));
+    if (picked != null && picked != eventDate)
+      setState(() {
+        eventDate = picked;
+      });
+    print(eventDate);
   }
 
   saveEventTitles(val) {
@@ -255,7 +272,7 @@ class _AddEventsState extends State<AddEvents> {
                             children: <Widget>[
                               buildSelectionContainer(
                                 title: 'Select a date',
-                                onTapFunc: () {},
+                                onTapFunc: () => _selectDate(context),
                                 icon: FontAwesome.calendar_plus_o,
                               ),
                               buildSelectionContainer(

@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: PageView(
         children: <Widget>[
-          EventsPage(),
+          EventsPage(currentUser: currentUser),
           ExplorePage(),
           StoriesPage(),
         ],

@@ -1,4 +1,5 @@
 import 'package:ausocial/constants.dart';
+import 'package:ausocial/models/users.dart';
 import 'package:ausocial/pages/add_events.dart';
 import 'package:ausocial/pages/home.dart';
 import 'package:ausocial/widgets/fancy_button.dart';
@@ -6,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EventsPage extends StatefulWidget {
+  final User currentUser;
+
+  EventsPage({this.currentUser});
   @override
   _EventsPageState createState() => _EventsPageState();
 }
@@ -48,7 +52,8 @@ class _EventsPageState extends State<EventsPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AddEvents()));
+                                  builder: (context) =>
+                                      AddEvents(currentUser: currentUser)));
                         },
                         icon: Icon(
                           Icons.add_circle_outline,
