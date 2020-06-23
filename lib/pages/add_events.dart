@@ -15,6 +15,7 @@ class AddEvents extends StatefulWidget {
 
 class _AddEventsState extends State<AddEvents> {
   DateTime eventDate = DateTime.now();
+  TimeOfDay eventTime = TimeOfDay.now();
   PickedFile file;
   final _picker = ImagePicker();
   String selectedDepartment = 'Information Science and Technology';
@@ -32,6 +33,19 @@ class _AddEventsState extends State<AddEvents> {
     return dropDownItems;
   }
 
+  Future<Null> _selectTime(BuildContext context) async {
+    final TimeOfDay selectedTime = await showTimePicker(
+      initialTime: TimeOfDay.now(),
+      context: context,
+    );
+    if (selectedTime != null) {
+      setState(() {
+        eventTime = selectedTime;
+      });
+      print('Event Time: $eventTime');
+    }
+  }
+
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -42,7 +56,7 @@ class _AddEventsState extends State<AddEvents> {
       setState(() {
         eventDate = picked;
       });
-    print(eventDate);
+    print('Event Date: $eventDate');
   }
 
   saveEventTitles(val) {
@@ -277,7 +291,7 @@ class _AddEventsState extends State<AddEvents> {
                               ),
                               buildSelectionContainer(
                                   title: 'Select Time',
-                                  onTapFunc: () {},
+                                  onTapFunc: () => _selectTime(context),
                                   icon: MaterialIcons.access_time),
                             ],
                           ),
