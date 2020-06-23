@@ -10,6 +10,21 @@ class AddEvents extends StatefulWidget {
 }
 
 class _AddEventsState extends State<AddEvents> {
+  String selectedDepartment = 'Information Science and Technology';
+
+  List<DropdownMenuItem> getDropDownList() {
+    List<DropdownMenuItem<String>> dropDownItems = [];
+    for (int i = 0; i < departments.length; i++) {
+      String department = departments[i];
+      var newItem = DropdownMenuItem(
+        child: Text(department),
+        value: department,
+      );
+      dropDownItems.add(newItem);
+    }
+    return dropDownItems;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -118,13 +133,36 @@ class _AddEventsState extends State<AddEvents> {
                                   icon: MaterialIcons.access_time),
                             ],
                           ),
-                          FormTitles(title: 'Choose Venue'),
+                          FormTitles(title: 'Choose Department Venue'),
                           Row(
                             children: <Widget>[
-                              buildSelectionContainer(
-                                title: 'Get Location',
-                                onTapFunc: () {},
-                                icon: Octicons.location,
+                              Padding(
+                                padding: const EdgeInsets.only(left: 40.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton<String>(
+                                        style: GoogleFonts.abel(
+                                          color: Colors.black,
+                                          fontSize: 16.0,
+                                        ),
+                                        value: selectedDepartment,
+                                        items: getDropDownList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedDepartment = value;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
