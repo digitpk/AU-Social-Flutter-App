@@ -11,7 +11,7 @@ class AddEvents extends StatefulWidget {
 
 class _AddEventsState extends State<AddEvents> {
   String selectedDepartment = 'Information Science and Technology';
-
+  String eventTitle, eventDescription;
   List<DropdownMenuItem> getDropDownList() {
     List<DropdownMenuItem<String>> dropDownItems = [];
     for (int i = 0; i < departments.length; i++) {
@@ -23,6 +23,20 @@ class _AddEventsState extends State<AddEvents> {
       dropDownItems.add(newItem);
     }
     return dropDownItems;
+  }
+
+  saveEventTitles(val) {
+    setState(() {
+      eventTitle = val;
+    });
+    print(eventTitle);
+  }
+
+  saveEventDescription(val) {
+    setState(() {
+      eventDescription = val;
+    });
+    print(eventDescription);
   }
 
   @override
@@ -78,7 +92,7 @@ class _AddEventsState extends State<AddEvents> {
                   ),
                   child: SingleChildScrollView(
                     child: Container(
-                      height: MediaQuery.of(context).size.height,
+                      height: 1000,
                       child: Column(
                         children: <Widget>[
                           Padding(
@@ -108,16 +122,84 @@ class _AddEventsState extends State<AddEvents> {
                             ),
                           ),
                           FormTitles(title: 'Event Title'),
-                          buildFormInput(
-                            lines: 1,
-                            height: 50.0,
+                          Form(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                top: 15.0,
+                                left: 20.0,
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    15.0,
+                                  ),
+                                  color: Colors.grey.withOpacity(0.1),
+                                  border: Border.all(
+                                    width: 0.5,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                width: 350,
+                                height: 50,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 15.0,
+                                  ),
+                                  child: TextFormField(
+                                    onChanged: (val) {
+                                      saveEventTitles(val);
+                                    },
+                                    maxLines: 1,
+                                    style: GoogleFonts.abel(
+                                      fontSize: 20.0,
+                                    ),
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                           FormTitles(
                             title: 'Event Description',
                           ),
-                          buildFormInput(
-                            lines: 6,
-                            height: 125.0,
+                          Form(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                top: 15.0,
+                                left: 20.0,
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    15.0,
+                                  ),
+                                  color: Colors.grey.withOpacity(0.1),
+                                  border: Border.all(
+                                    width: 0.5,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                width: 350,
+                                height: 125,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 15.0,
+                                  ),
+                                  child: TextFormField(
+                                    onChanged: (val) {
+                                      saveEventDescription(val);
+                                    },
+                                    maxLines: 6,
+                                    style: GoogleFonts.abel(
+                                      fontSize: 20.0,
+                                    ),
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                           FormTitles(title: 'Choose date & time'),
                           Row(
@@ -137,7 +219,10 @@ class _AddEventsState extends State<AddEvents> {
                           Row(
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(left: 40.0),
+                                padding: const EdgeInsets.only(
+                                  left: 40.0,
+                                  top: 15.0,
+                                ),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.grey.withOpacity(0.1),
@@ -145,7 +230,8 @@ class _AddEventsState extends State<AddEvents> {
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 10.0),
+                                      horizontal: 10.0,
+                                    ),
                                     child: DropdownButtonHideUnderline(
                                       child: DropdownButton<String>(
                                         style: GoogleFonts.abel(
@@ -163,6 +249,52 @@ class _AddEventsState extends State<AddEvents> {
                                     ),
                                   ),
                                 ),
+                              ),
+                            ],
+                          ),
+                          FormTitles(title: 'Contact Info'),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: 15.0,
+                              left: 20.0,
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                  15.0,
+                                ),
+                                color: Colors.grey.withOpacity(0.1),
+                                border: Border.all(
+                                  width: 0.5,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              width: 350,
+                              height: 50,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 15.0,
+                                ),
+                                child: TextFormField(
+                                  keyboardType:
+                                      TextInputType.numberWithOptions(),
+                                  onChanged: (val) {},
+                                  maxLines: 1,
+                                  style: GoogleFonts.abel(
+                                    fontSize: 20.0,
+                                  ),
+                                  decoration:
+                                      InputDecoration(border: InputBorder.none),
+                                ),
+                              ),
+                            ),
+                          ),
+                          FormTitles(title: 'Choose Event Image'),
+                          Row(
+                            children: <Widget>[
+                              buildSelectionContainer(
+                                title: 'Add Image',
+                                icon: Feather.image,
                               ),
                             ],
                           ),
@@ -210,34 +342,6 @@ class _AddEventsState extends State<AddEvents> {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Form buildFormInput({int lines, double height}) {
-    return Form(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0),
-            color: Colors.grey.withOpacity(0.1),
-            border: Border.all(
-              width: 0.5,
-              color: Colors.grey,
-            ),
-          ),
-          width: 350,
-          height: height,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15.0),
-            child: TextFormField(
-              maxLines: lines,
-              style: GoogleFonts.abel(fontSize: 20.0),
-              decoration: InputDecoration(border: InputBorder.none),
-            ),
           ),
         ),
       ),
