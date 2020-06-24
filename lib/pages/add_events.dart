@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:ausocial/constants.dart';
 import 'package:ausocial/models/users.dart';
 import 'package:ausocial/pages/home.dart';
+import 'package:ausocial/widgets/fancy_button.dart';
+import 'package:ausocial/widgets/progress.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,9 +19,11 @@ class AddEvents extends StatefulWidget {
 }
 
 class _AddEventsState extends State<AddEvents> {
+  bool isUploading = false;
   DateTime eventDate;
   TimeOfDay eventTime;
-  PickedFile file;
+  File file;
+  PickedFile pFile;
   final _picker = ImagePicker();
   String selectedDepartment = 'Information Science and Technology';
   String eventTitle, eventDescription, contactInfo, sEventDate, sEventTime;
@@ -79,23 +86,25 @@ class _AddEventsState extends State<AddEvents> {
 
   handleTakePhoto() async {
     Navigator.pop(context);
-    PickedFile file = await _picker.getImage(
+    PickedFile pFile = await _picker.getImage(
       source: ImageSource.camera,
       maxHeight: 675,
       maxWidth: 960,
     );
     setState(() {
-      this.file = file;
+      this.pFile = pFile;
+      this.file = File(pFile.path);
     });
   }
 
   handleChooseFromGallery() async {
     Navigator.pop(context);
-    PickedFile file = await _picker.getImage(
+    PickedFile pFile = await _picker.getImage(
       source: ImageSource.gallery,
     );
     setState(() {
-      this.file = file;
+      this.pFile = pFile;
+      this.file = File(pFile.path);
     });
   }
 
@@ -123,6 +132,14 @@ class _AddEventsState extends State<AddEvents> {
         });
   }
 
+  compressImage() async {}
+
+  handleSubmit() {
+    setState(() {
+      isUploading = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -135,7 +152,7 @@ class _AddEventsState extends State<AddEvents> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Hello, \n${googleSignIn.currentUser.displayName}',
+                    'Hello, \n${currentUser.displayName}',
                     style: GoogleFonts.abel(
                       fontSize: 25.0,
                     ),
@@ -149,8 +166,8 @@ class _AddEventsState extends State<AddEvents> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: Image(
-                        image: NetworkImage(
-                          '${googleSignIn.currentUser.photoUrl}',
+                        image: CachedNetworkImageProvider(
+                          currentUser.photoUrl,
                         ),
                       ),
                     ),
@@ -179,6 +196,11 @@ class _AddEventsState extends State<AddEvents> {
                       height: 1000,
                       child: Column(
                         children: <Widget>[
+                          isUploading
+                              ? linearProgress()
+                              : SizedBox(
+                                  height: 1,
+                                ),
                           Padding(
                             padding: const EdgeInsets.only(top: 15.0),
                             child: Center(
@@ -407,20 +429,37 @@ class _AddEventsState extends State<AddEvents> {
                                         SizedBox(
                                           width: 10.0,
                                         ),
-                                        Text(
-                                          'Add Image',
-                                          style: GoogleFonts.abel(
-                                            fontSize: 20.0,
-                                            color: Color(primaryBlue),
-                                          ),
-                                        ),
+                                        file == null
+                                            ? Text(
+                                                'Add Image',
+                                                style: GoogleFonts.abel(
+                                                  fontSize: 20.0,
+                                                  color: Color(primaryBlue),
+                                                ),
+                                              )
+                                            : Container(
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: FileImage(file),
+                                                  ),
+                                                ),
+                                              ),
                                       ],
                                     ),
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 80.0),
+                            child: FancyButton(
+                              label: 'Done',
+                              color: Color(primaryBlue),
+                              onPress:
+                                  isUploading ? null : () => handleSubmit(),
+                            ),
+                          )
                         ],
                       ),
                     ),
