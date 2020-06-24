@@ -1,5 +1,6 @@
 import 'dart:io';
-
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image/image.dart' as Im;
 import 'package:ausocial/constants.dart';
 import 'package:ausocial/models/users.dart';
 import 'package:ausocial/pages/home.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 class AddEvents extends StatefulWidget {
   final User currentUser;
@@ -20,6 +23,7 @@ class AddEvents extends StatefulWidget {
 
 class _AddEventsState extends State<AddEvents> {
   bool isUploading = false;
+  String eventId = Uuid().v4();
   DateTime eventDate;
   TimeOfDay eventTime;
   File file;
@@ -132,12 +136,73 @@ class _AddEventsState extends State<AddEvents> {
         });
   }
 
-  compressImage() async {}
+  compressImage() async {
+    final tempDir = await getTemporaryDirectory();
+    final path = tempDir.path;
+    Im.Image imageFile = Im.decodeImage(file.readAsBytesSync());
+    final compressedImageFile = File('$path/img_$eventId.jpg')
+      ..writeAsBytesSync(Im.encodeJpg(imageFile, quality: 85));
+    setState(() {
+      file = compressedImageFile;
+    });
+  }
 
-  handleSubmit() {
+  createPostInFirestore(
+      {String eventTitle,
+      String eventDesc,
+      String eventDate,
+      String eventTime,
+      String dept,
+      String contact,
+      String mediaUrl}) {
+    eventRef
+        .document(widget.currentUser.id)
+        .collection('events')
+        .document(eventId)
+        .setData({
+      "eventId": eventId,
+      "ownerId": widget.currentUser.id,
+      "username": widget.currentUser.username,
+      "mediaUrl": mediaUrl,
+      "eventTitle": eventTitle,
+      "eventDescription": eventDesc,
+      "eventDate": eventDate,
+      "eventTime": eventTime,
+      "department": dept,
+      "contact": contact,
+      "timeStamp": timeStamp,
+      "likes": {},
+    });
+    setState(() {
+      file = null;
+      isUploading = false;
+    });
+    Navigator.pop(context);
+  }
+
+  handleSubmit() async {
     setState(() {
       isUploading = true;
     });
+    await compressImage();
+    String mediaUrl = await uploadImage(file);
+    createPostInFirestore(
+      eventTitle: eventTitle,
+      eventDesc: eventDescription,
+      eventDate: sEventDate,
+      eventTime: sEventTime,
+      dept: selectedDepartment,
+      mediaUrl: mediaUrl,
+      contact: contactInfo,
+    );
+  }
+
+  Future<String> uploadImage(imageFile) async {
+    StorageUploadTask uploadTask =
+        storageRef.child('event_$eventId.jpg').putFile(imageFile);
+    StorageTaskSnapshot storageSnap = await uploadTask.onComplete;
+    String downloadUrl = await storageSnap.ref.getDownloadURL();
+    return downloadUrl;
   }
 
   @override
@@ -175,6 +240,11 @@ class _AddEventsState extends State<AddEvents> {
                 ],
               ),
             ),
+            isUploading
+                ? linearProgress()
+                : SizedBox(
+                    height: 1,
+                  ),
             Flexible(
               child: Padding(
                 padding: const EdgeInsets.only(top: 15.0),
@@ -196,11 +266,6 @@ class _AddEventsState extends State<AddEvents> {
                       height: 1000,
                       child: Column(
                         children: <Widget>[
-                          isUploading
-                              ? linearProgress()
-                              : SizedBox(
-                                  height: 1,
-                                ),
                           Padding(
                             padding: const EdgeInsets.only(top: 15.0),
                             child: Center(

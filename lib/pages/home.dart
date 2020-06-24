@@ -5,6 +5,7 @@ import 'package:ausocial/pages/explore.dart';
 import 'package:ausocial/pages/stories.dart';
 import 'package:ausocial/widgets/fancy_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -13,7 +14,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 final GoogleSignIn googleSignIn = GoogleSignIn();
+final StorageReference storageRef = FirebaseStorage.instance.ref();
 final userRef = Firestore.instance.collection('users');
+final eventRef = Firestore.instance.collection('events');
 final DateTime timeStamp = DateTime.now();
 User currentUser;
 
