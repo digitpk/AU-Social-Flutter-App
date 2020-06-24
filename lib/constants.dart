@@ -5,6 +5,7 @@ int primaryBlack = 0xff1c1c1c;
 const double paddingLeft = 40.0;
 
 const List<String> departments = [
+  'College Culturals',
   'Bio-Technology',
   'CECRI',
   'Ceramic Technology',

@@ -14,12 +14,12 @@ class AddEvents extends StatefulWidget {
 }
 
 class _AddEventsState extends State<AddEvents> {
-  DateTime eventDate = DateTime.now();
-  TimeOfDay eventTime = TimeOfDay.now();
+  DateTime eventDate;
+  TimeOfDay eventTime;
   PickedFile file;
   final _picker = ImagePicker();
   String selectedDepartment = 'Information Science and Technology';
-  String eventTitle, eventDescription, contactInfo;
+  String eventTitle, eventDescription, contactInfo, sEventDate, sEventTime;
   List<DropdownMenuItem> getDropDownList() {
     List<DropdownMenuItem<String>> dropDownItems = [];
     for (int i = 0; i < departments.length; i++) {
@@ -41,6 +41,8 @@ class _AddEventsState extends State<AddEvents> {
     if (selectedTime != null) {
       setState(() {
         eventTime = selectedTime;
+        sEventTime = eventTime.toString();
+        sEventTime = sEventTime.substring(10, 15);
       });
       print('Event Time: $eventTime');
     }
@@ -49,12 +51,14 @@ class _AddEventsState extends State<AddEvents> {
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: eventDate,
+        initialDate: DateTime.now(),
         firstDate: DateTime.now(),
         lastDate: DateTime(2100));
     if (picked != null && picked != eventDate)
       setState(() {
         eventDate = picked;
+        sEventDate = eventDate.toString();
+        sEventDate = sEventDate.substring(0, 10);
       });
     print('Event Date: $eventDate');
   }
@@ -285,12 +289,16 @@ class _AddEventsState extends State<AddEvents> {
                           Row(
                             children: <Widget>[
                               buildSelectionContainer(
-                                title: 'Select a date',
+                                title: eventDate == null
+                                    ? 'Select a date'
+                                    : '$sEventDate',
                                 onTapFunc: () => _selectDate(context),
                                 icon: FontAwesome.calendar_plus_o,
                               ),
                               buildSelectionContainer(
-                                  title: 'Select Time',
+                                  title: eventTime == null
+                                      ? 'Select Time'
+                                      : '$sEventTime',
                                   onTapFunc: () => _selectTime(context),
                                   icon: MaterialIcons.access_time),
                             ],
