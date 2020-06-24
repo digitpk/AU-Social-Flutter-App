@@ -113,7 +113,6 @@ class _HomeState extends State<Home> {
       body: PageView(
         children: <Widget>[
           EventsPage(currentUser: currentUser),
-          ExplorePage(),
           StoriesPage(),
         ],
         controller: pageController,
@@ -131,19 +130,13 @@ class _HomeState extends State<Home> {
             icon: Icon(
               SimpleLineIcons.event,
               color: Colors.white,
-              size: 20.0,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              AntDesign.search1,
-              size: 35.0,
+//              size: 20.0,
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               AntDesign.smileo,
-              size: 20.0,
+//              size: 20.0,
               color: Colors.white,
             ),
           ),

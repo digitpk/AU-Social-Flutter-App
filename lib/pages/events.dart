@@ -15,6 +15,11 @@ class EventsPage extends StatefulWidget {
 }
 
 class _EventsPageState extends State<EventsPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   logout() {
     googleSignIn.signOut();
   }
