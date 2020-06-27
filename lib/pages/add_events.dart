@@ -217,7 +217,7 @@ class _AddEventsState extends State<AddEvents> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Hello, \n${currentUser.displayName}',
+                    'Hello, \n${widget.currentUser.displayName}',
                     style: GoogleFonts.abel(
                       fontSize: 25.0,
                     ),

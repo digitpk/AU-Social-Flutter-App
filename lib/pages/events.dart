@@ -2,7 +2,9 @@ import 'package:ausocial/constants.dart';
 import 'package:ausocial/models/users.dart';
 import 'package:ausocial/pages/add_events.dart';
 import 'package:ausocial/pages/home.dart';
-import 'package:ausocial/widgets/fancy_button.dart';
+import 'package:ausocial/widgets/event_container.dart';
+import 'package:ausocial/widgets/progress.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,13 +17,43 @@ class EventsPage extends StatefulWidget {
 }
 
 class _EventsPageState extends State<EventsPage> {
+  bool isLoading = false;
+  List<EventPost> posts = [];
   @override
   void initState() {
     super.initState();
+    getEventPosts();
+  }
+
+  getEventPosts() async {
+    setState(() {
+      isLoading = true;
+    });
+    print("Current ID : ${widget.currentUser.id}");
+    QuerySnapshot snapshot = await eventRef
+        .document(widget.currentUser.id)
+        .collection('events')
+        .orderBy('timeStamp', descending: true)
+        .getDocuments();
+    print(snapshot.documents.length);
+    setState(() {
+      isLoading = false;
+      posts =
+          snapshot.documents.map((doc) => EventPost.fromDocument(doc)).toList();
+    });
   }
 
   logout() {
     googleSignIn.signOut();
+  }
+
+  buildEventPosts() {
+    if (isLoading) {
+      return circularProgress();
+    }
+    return Column(
+      children: posts,
+    );
   }
 
   @override
@@ -67,6 +99,16 @@ class _EventsPageState extends State<EventsPage> {
                         ),
                       ),
                     ),
+                    IconButton(
+                      onPressed: () {
+                        logout();
+                      },
+                      icon: Icon(
+                        Icons.clear,
+                        size: 28,
+                        color: Color(primaryBlue),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -78,16 +120,7 @@ class _EventsPageState extends State<EventsPage> {
                 color: Colors.white,
                 child: ListView(
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        FancyButton(
-                          onPress: logout,
-                          label: 'LogOut',
-                          color: Color(primaryBlue),
-                        ),
-                      ],
-                    ),
+                    buildEventPosts(),
                   ],
                 ),
               ),

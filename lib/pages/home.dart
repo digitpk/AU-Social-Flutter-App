@@ -1,7 +1,6 @@
 import 'package:ausocial/constants.dart';
 import 'package:ausocial/models/users.dart';
 import 'package:ausocial/pages/events.dart';
-import 'package:ausocial/pages/explore.dart';
 import 'package:ausocial/pages/stories.dart';
 import 'package:ausocial/widgets/fancy_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,7 +15,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 final GoogleSignIn googleSignIn = GoogleSignIn();
 final StorageReference storageRef = FirebaseStorage.instance.ref();
 final userRef = Firestore.instance.collection('users');
-final eventRef = Firestore.instance.collection('events');
+final eventRef = Firestore.instance.collection('event');
 final DateTime timeStamp = DateTime.now();
 User currentUser;
 
@@ -82,7 +81,6 @@ class _HomeState extends State<Home> {
       doc = await userRef.document(user.id).get();
     }
     currentUser = User.fromDocument(doc);
-    print(currentUser);
     print(currentUser.username);
   }
 
