@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 int primaryBlue = 0xff0070FF;
 int primaryBlack = 0xff1c1c1c;
 const double paddingLeft = 40.0;
+const double paddingInDetailPage = 15.0;
 
 const List<String> departments = [
   'College Culturals',

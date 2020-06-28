@@ -118,6 +118,7 @@ class _HomeState extends State<Home> {
         physics: NeverScrollableScrollPhysics(),
       ),
       bottomNavigationBar: SnakeNavigationBar(
+        snakeShape: SnakeShape.rectangle,
         currentIndex: pageIndex,
         onPositionChanged: onTap,
         snakeColor: Color(primaryBlue),

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:date_time_format/date_time_format.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image/image.dart' as Im;
 import 'package:ausocial/constants.dart';
@@ -68,10 +69,9 @@ class _AddEventsState extends State<AddEvents> {
     if (picked != null && picked != eventDate)
       setState(() {
         eventDate = picked;
-        sEventDate = eventDate.toString();
-        sEventDate = sEventDate.substring(0, 10);
+        sEventDate = DateTimeFormat.format(picked, format: 'j M');
       });
-    print('Event Date: $eventDate');
+    print('Event Date: ${DateTimeFormat.format(picked, format: 'j M')}');
   }
 
   saveEventTitles(val) {
