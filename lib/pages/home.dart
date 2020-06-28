@@ -106,42 +106,45 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Scaffold buildAuthScreen() {
-    return Scaffold(
-      body: PageView(
-        children: <Widget>[
-          EventsPage(currentUser: currentUser),
-          StoriesPage(),
-        ],
-        controller: pageController,
-        onPageChanged: onPageChanged,
-        physics: NeverScrollableScrollPhysics(),
-      ),
-      bottomNavigationBar: SnakeNavigationBar(
-        snakeShape: SnakeShape.rectangle,
-        currentIndex: pageIndex,
-        onPositionChanged: onTap,
-        snakeColor: Color(primaryBlue),
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              SimpleLineIcons.event,
-              color: Colors.white,
-//              size: 20.0,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              AntDesign.smileo,
-//              size: 20.0,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
+  buildAuthScreen() {
+    return EventsPage(
+      currentUser: currentUser,
     );
+//    return Scaffold(
+//      body: PageView(
+//        children: <Widget>[
+//          EventsPage(currentUser: currentUser),
+//          StoriesPage(),
+//        ],
+//        controller: pageController,
+//        onPageChanged: onPageChanged,
+//        physics: NeverScrollableScrollPhysics(),
+//      ),
+//      bottomNavigationBar: SnakeNavigationBar(
+//        snakeShape: SnakeShape.rectangle,
+//        currentIndex: pageIndex,
+//        onPositionChanged: onTap,
+//        snakeColor: Color(primaryBlue),
+//        showUnselectedLabels: false,
+//        showSelectedLabels: false,
+//        items: [
+//          BottomNavigationBarItem(
+//            icon: Icon(
+//              SimpleLineIcons.event,
+//              color: Colors.white,
+////              size: 20.0,
+//            ),
+//          ),
+//          BottomNavigationBarItem(
+//            icon: Icon(
+//              AntDesign.smileo,
+////              size: 20.0,
+//              color: Colors.white,
+//            ),
+//          ),
+//        ],
+//      ),
+//    );
   }
 
   Widget buildUnAuthScreen() {

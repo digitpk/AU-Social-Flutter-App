@@ -4,6 +4,7 @@ import 'package:ausocial/pages/event_details_page.dart';
 import 'package:ausocial/pages/home.dart';
 import 'package:ausocial/widgets/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 class EventPost extends StatefulWidget {
   final String eventTitle;
   final String eventDesc;
-  final String eventDate;
+  final DateTime eventDate;
   final String eventTime;
   final String department;
   final String contact;
@@ -41,7 +42,7 @@ class EventPost extends StatefulWidget {
       eventTitle: doc['eventTitle'],
       eventDesc: doc['eventDescription'],
       eventTime: doc['eventTime'],
-      eventDate: doc['eventDate'],
+      eventDate: DateTime.parse(doc['eventDate'].toDate().toString()),
       department: doc['department'],
       mediaUrl: doc['mediaUrl'],
       contact: doc['contact'],
@@ -86,7 +87,7 @@ class _EventPostState extends State<EventPost> {
   final String eventTitle;
   final String ownerId;
   final String eventDesc;
-  final String eventDate;
+  final DateTime eventDate;
   final String eventTime;
   final String dept;
   final String contact;
@@ -198,7 +199,10 @@ class _EventPostState extends State<EventPost> {
                         padding: const EdgeInsets.all(10.0),
                         child: Center(
                           child: Text(
-                            '$eventDate',
+                            '${DateTimeFormat.format(
+                              eventDate,
+                              format: 'j M',
+                            )}',
                             style: GoogleFonts.quicksand(
                               color: Colors.white,
                               fontSize: 20.0,

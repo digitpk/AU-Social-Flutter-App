@@ -30,12 +30,8 @@ class _EventsPageState extends State<EventsPage> {
       isLoading = true;
     });
     print("Current ID : ${widget.currentUser.id}");
-    QuerySnapshot snapshot = await eventRef
-        .document(widget.currentUser.id)
-        .collection('events')
-        .orderBy('timeStamp', descending: true)
-        .getDocuments();
-    print(snapshot.documents.length);
+    QuerySnapshot snapshot =
+        await eventRef.orderBy('timeStamp', descending: true).getDocuments();
     setState(() {
       isLoading = false;
       posts =
@@ -65,8 +61,11 @@ class _EventsPageState extends State<EventsPage> {
         body: Column(
           children: <Widget>[
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                bottom: 8,
+                right: 16,
+              ),
               child: Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,32 +81,41 @@ class _EventsPageState extends State<EventsPage> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddEvents(currentUser: currentUser)));
-                        },
-                        icon: Icon(
-                          Icons.add_circle_outline,
-                          size: 28,
-                          color: Color(primaryBlue),
+                    Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AddEvents(currentUser: currentUser)));
+                            },
+                            icon: Icon(
+                              Icons.add_circle_outline,
+                              size: 28,
+                              color: Color(primaryBlue),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        logout();
-                      },
-                      icon: Icon(
-                        Icons.clear,
-                        size: 28,
-                        color: Color(primaryBlue),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 20.0,
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              logout();
+                            },
+                            icon: Icon(
+                              Icons.clear,
+                              size: 28,
+                              color: Color(primaryBlue),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

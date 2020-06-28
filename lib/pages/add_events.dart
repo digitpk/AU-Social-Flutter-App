@@ -69,7 +69,6 @@ class _AddEventsState extends State<AddEvents> {
     if (picked != null && picked != eventDate)
       setState(() {
         eventDate = picked;
-        sEventDate = DateTimeFormat.format(picked, format: 'j M');
       });
     print('Event Date: ${DateTimeFormat.format(picked, format: 'j M')}');
   }
@@ -150,16 +149,12 @@ class _AddEventsState extends State<AddEvents> {
   createPostInFirestore(
       {String eventTitle,
       String eventDesc,
-      String eventDate,
+      DateTime eventDate,
       String eventTime,
       String dept,
       String contact,
       String mediaUrl}) {
-    eventRef
-        .document(widget.currentUser.id)
-        .collection('events')
-        .document(eventId)
-        .setData({
+    eventRef.document(widget.currentUser.id).setData({
       "eventId": eventId,
       "ownerId": widget.currentUser.id,
       "username": widget.currentUser.username,
@@ -189,7 +184,7 @@ class _AddEventsState extends State<AddEvents> {
     createPostInFirestore(
       eventTitle: eventTitle,
       eventDesc: eventDescription,
-      eventDate: sEventDate,
+      eventDate: eventDate,
       eventTime: sEventTime,
       dept: selectedDepartment,
       mediaUrl: mediaUrl,
@@ -378,7 +373,10 @@ class _AddEventsState extends State<AddEvents> {
                               buildSelectionContainer(
                                 title: eventDate == null
                                     ? 'Select a date'
-                                    : '$sEventDate',
+                                    : '${DateTimeFormat.format(
+                                        eventDate,
+                                        format: 'j M',
+                                      )}',
                                 onTapFunc: () => _selectDate(context),
                                 icon: FontAwesome.calendar_plus_o,
                               ),

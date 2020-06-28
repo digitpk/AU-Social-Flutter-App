@@ -1,13 +1,16 @@
 import 'package:ausocial/constants.dart';
 import 'package:ausocial/widgets/fancy_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EventDetailsPage extends StatelessWidget {
+import '../main.dart';
+
+class EventDetailsPage extends StatefulWidget {
   final String eventTitle;
   final String eventDesc;
-  final String eventDate;
+  final DateTime eventDate;
   final String eventTime;
   final String department;
   final String contact;
@@ -30,6 +33,17 @@ class EventDetailsPage extends StatelessWidget {
     this.likes,
     this.ownerId,
   });
+
+  @override
+  _EventDetailsPageState createState() => _EventDetailsPageState();
+}
+
+class _EventDetailsPageState extends State<EventDetailsPage> {
+  final CallsAndMessagesService _service = locator<CallsAndMessagesService>();
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,7 +56,7 @@ class EventDetailsPage extends StatelessWidget {
               child: FancyButton(
                 color: Color(primaryBlue),
                 label: 'Contact',
-                onPress: () {},
+                onPress: () => _service.call(widget.contact),
               ),
             ),
           ],
@@ -58,7 +72,7 @@ class EventDetailsPage extends StatelessWidget {
                     height: 250,
                     width: MediaQuery.of(context).size.width,
                     child: Image.network(
-                      mediaUrl,
+                      widget.mediaUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -68,7 +82,7 @@ class EventDetailsPage extends StatelessWidget {
                       top: paddingInDetailPage,
                     ),
                     child: Text(
-                      eventTitle,
+                      widget.eventTitle,
                       style: GoogleFonts.quicksand(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
@@ -99,7 +113,7 @@ class EventDetailsPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Text(
-                                eventTime,
+                                widget.eventTime,
                                 style: GoogleFonts.quicksand(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
@@ -122,7 +136,7 @@ class EventDetailsPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Text(
-                                eventDate,
+                                '${DateTimeFormat.format(widget.eventDate, format: 'j M')}',
                                 style: GoogleFonts.quicksand(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
@@ -146,7 +160,7 @@ class EventDetailsPage extends StatelessWidget {
                     ),
                     child: Container(
                       child: Text(
-                        eventDesc,
+                        widget.eventDesc,
                         style: GoogleFonts.quicksand(
                           fontSize: 16,
                           color: Colors.grey[500],
@@ -176,7 +190,7 @@ class EventDetailsPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
-                            department,
+                            widget.department,
                             style: GoogleFonts.quicksand(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
