@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 class EventPost extends StatefulWidget {
   final String eventTitle;
   final String eventDesc;
+  final String eventWebsite;
   final DateTime eventDate;
   final String eventTime;
   final String department;
@@ -34,6 +35,7 @@ class EventPost extends StatefulWidget {
     this.mediaUrl,
     this.likes,
     this.ownerId,
+    this.eventWebsite,
   });
 
   factory EventPost.fromDocument(DocumentSnapshot doc) {
@@ -49,6 +51,7 @@ class EventPost extends StatefulWidget {
       timeStamp: doc['timeStamp'],
       likes: doc['likes'],
       ownerId: doc['ownerId'],
+      eventWebsite: doc['eventWebsite'],
     );
   }
 
@@ -78,6 +81,7 @@ class EventPost extends StatefulWidget {
         dept: this.department,
         mediaUrl: this.mediaUrl,
         timeStamp: this.timeStamp,
+        eventWebsite: this.eventWebsite,
         likes: this.likes,
         likeCount: getLikesCount(this.likes),
       );
@@ -87,6 +91,7 @@ class _EventPostState extends State<EventPost> {
   final String eventTitle;
   final String ownerId;
   final String eventDesc;
+  final String eventWebsite;
   final DateTime eventDate;
   final String eventTime;
   final String dept;
@@ -99,6 +104,7 @@ class _EventPostState extends State<EventPost> {
   int likeCount;
 
   _EventPostState({
+    this.eventWebsite,
     this.ownerId,
     this.eventId,
     this.timeStamp,
@@ -137,6 +143,7 @@ class _EventPostState extends State<EventPost> {
                       builder: (context) => EventDetailsPage(
                             ownerId: this.ownerId,
                             eventId: this.eventId,
+                            eventWebsite: this.eventWebsite,
                             eventDesc: this.eventDesc,
                             eventTime: this.eventTime,
                             eventTitle: this.eventTitle,

@@ -12,6 +12,7 @@ class EventDetailsPage extends StatefulWidget {
   final String eventDesc;
   final DateTime eventDate;
   final String eventTime;
+  final String eventWebsite;
   final String department;
   final String contact;
   final String mediaUrl;
@@ -24,6 +25,7 @@ class EventDetailsPage extends StatefulWidget {
     this.eventId,
     this.timeStamp,
     this.eventTitle,
+    this.eventWebsite,
     this.eventDesc,
     this.eventDate,
     this.eventTime,
@@ -49,7 +51,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
@@ -59,6 +61,18 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                 onPress: () => _service.call(widget.contact),
               ),
             ),
+            widget.eventWebsite == null
+                ? SizedBox(
+                    width: 1,
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: FancyButton(
+                      color: Color(primaryBlue),
+                      label: 'Website',
+                      onPress: () {},
+                    ),
+                  ),
           ],
         ),
         backgroundColor: Colors.white,

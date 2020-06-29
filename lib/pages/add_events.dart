@@ -31,7 +31,12 @@ class _AddEventsState extends State<AddEvents> {
   PickedFile pFile;
   final _picker = ImagePicker();
   String selectedDepartment = 'Information Science and Technology';
-  String eventTitle, eventDescription, contactInfo, sEventDate, sEventTime;
+  String eventTitle,
+      eventDescription,
+      contactInfo,
+      sEventDate,
+      sEventTime,
+      eventWebsite;
   List<DropdownMenuItem> getDropDownList() {
     List<DropdownMenuItem<String>> dropDownItems = [];
     for (int i = 0; i < departments.length; i++) {
@@ -78,6 +83,13 @@ class _AddEventsState extends State<AddEvents> {
       eventTitle = val;
     });
     print(eventTitle);
+  }
+
+  saveEventWebsite(val) {
+    setState(() {
+      eventWebsite = val;
+    });
+    print(eventWebsite);
   }
 
   saveEventDescription(val) {
@@ -146,15 +158,17 @@ class _AddEventsState extends State<AddEvents> {
     });
   }
 
-  createPostInFirestore(
-      {String eventTitle,
-      String eventDesc,
-      DateTime eventDate,
-      String eventTime,
-      String dept,
-      String contact,
-      String mediaUrl}) {
-    eventRef.document(widget.currentUser.id).setData({
+  createPostInFirestore({
+    String eventTitle,
+    String eventDesc,
+    DateTime eventDate,
+    String eventTime,
+    String dept,
+    String contact,
+    String mediaUrl,
+    String eventWebsite,
+  }) {
+    eventRef.document().setData({
       "eventId": eventId,
       "ownerId": widget.currentUser.id,
       "username": widget.currentUser.username,
@@ -162,6 +176,7 @@ class _AddEventsState extends State<AddEvents> {
       "eventTitle": eventTitle,
       "eventDescription": eventDesc,
       "eventDate": eventDate,
+      "eventWebsite": eventWebsite,
       "eventTime": eventTime,
       "department": dept,
       "contact": contact,
@@ -187,6 +202,7 @@ class _AddEventsState extends State<AddEvents> {
       eventDate: eventDate,
       eventTime: sEventTime,
       dept: selectedDepartment,
+      eventWebsite: eventWebsite,
       mediaUrl: mediaUrl,
       contact: contactInfo,
     );
@@ -242,7 +258,7 @@ class _AddEventsState extends State<AddEvents> {
                   ),
             Flexible(
               child: Padding(
-                padding: const EdgeInsets.only(top: 15.0),
+                padding: const EdgeInsets.only(top: 5.0),
                 child: Container(
                   width: double.infinity,
                   height: double.infinity,
@@ -258,7 +274,7 @@ class _AddEventsState extends State<AddEvents> {
                   ),
                   child: SingleChildScrollView(
                     child: Container(
-                      height: 1000,
+                      height: 1200,
                       child: Column(
                         children: <Widget>[
                           Padding(
@@ -513,6 +529,45 @@ class _AddEventsState extends State<AddEvents> {
                                 ),
                               ),
                             ],
+                          ),
+                          FormTitles(title: 'Website (optional)'),
+                          Form(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                top: 15.0,
+                                left: 20.0,
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    15.0,
+                                  ),
+                                  color: Colors.blue.withOpacity(0.1),
+                                  border: Border.all(
+                                    width: 0.5,
+                                    color: Colors.lightBlue,
+                                  ),
+                                ),
+                                width: 350,
+                                height: 50,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 15.0,
+                                  ),
+                                  child: TextFormField(
+                                    onChanged: (val) {
+                                      saveEventWebsite(val);
+                                    },
+                                    maxLines: 1,
+                                    style: GoogleFonts.abel(
+                                      fontSize: 20.0,
+                                    ),
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 80.0),
