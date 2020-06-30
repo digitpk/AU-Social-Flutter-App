@@ -2,8 +2,11 @@ import 'package:ausocial/constants.dart';
 import 'package:ausocial/widgets/fancy_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_format/date_time_format.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
@@ -58,6 +61,14 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  share(BuildContext context) {
+    final RenderBox box = context.findRenderObject();
+    Share.share(
+      '${widget.eventTitle}',
+      sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
+    );
   }
 
   @override
@@ -174,6 +185,27 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                               ),
                             ),
                           ],
+                        ),
+                        GestureDetector(
+                          onTap: () => share(
+                            context,
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(FontAwesome.share_square_o),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'Share',
+                                style: GoogleFonts.quicksand(
+                                  color: Colors.grey[500],
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
