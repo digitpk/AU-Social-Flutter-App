@@ -12,7 +12,7 @@ class EventDetailsPage extends StatefulWidget {
   final String eventTitle;
   final String eventDesc;
   final DateTime eventDate;
-  final String eventTime;
+  final DateTime eventTime;
   final String eventWebsite;
   final String department;
   final String contact;
@@ -143,7 +143,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Text(
-                                widget.eventTime,
+                                '${DateTimeFormat.format(widget.eventTime, format: 'h:i a')}',
                                 style: GoogleFonts.quicksand(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,

@@ -14,7 +14,7 @@ class EventPost extends StatefulWidget {
   final String eventDesc;
   final String eventWebsite;
   final DateTime eventDate;
-  final String eventTime;
+  final DateTime eventTime;
   final String department;
   final String contact;
   final String mediaUrl;
@@ -43,7 +43,7 @@ class EventPost extends StatefulWidget {
       eventId: doc['eventId'],
       eventTitle: doc['eventTitle'],
       eventDesc: doc['eventDescription'],
-      eventTime: doc['eventTime'],
+      eventTime: DateTime.parse(doc['eventTime'].toDate().toString()),
       eventDate: DateTime.parse(doc['eventDate'].toDate().toString()),
       department: doc['department'],
       mediaUrl: doc['mediaUrl'],
@@ -93,7 +93,7 @@ class _EventPostState extends State<EventPost> {
   final String eventDesc;
   final String eventWebsite;
   final DateTime eventDate;
-  final String eventTime;
+  final DateTime eventTime;
   final String dept;
   final String contact;
   final String mediaUrl;

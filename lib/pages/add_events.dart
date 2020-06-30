@@ -385,7 +385,8 @@ class _AddEventsState extends State<AddEvents> {
                                       fontSize: 20.0,
                                     ),
                                     decoration: InputDecoration(
-                                        border: InputBorder.none),
+                                      border: InputBorder.none,
+                                    ),
                                   ),
                                 ),
                               ),
