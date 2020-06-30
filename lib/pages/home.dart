@@ -1,14 +1,11 @@
 import 'package:ausocial/constants.dart';
 import 'package:ausocial/models/users.dart';
 import 'package:ausocial/pages/events.dart';
-import 'package:ausocial/pages/stories.dart';
 import 'package:ausocial/widgets/fancy_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -26,13 +23,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool isAuth = false;
-  PageController pageController;
-  int pageIndex = 0;
+//  PageController pageController;
+//  int pageIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController();
+//    pageController = PageController();
     googleSignIn.onCurrentUserChanged.listen(
       (account) {
         handleSignIn(account);
@@ -92,19 +89,19 @@ class _HomeState extends State<Home> {
     googleSignIn.signOut();
   }
 
-  onPageChanged(int pageIndex) {
-    setState(() {
-      this.pageIndex = pageIndex;
-    });
-  }
+//  onPageChanged(int pageIndex) {
+//    setState(() {
+//      this.pageIndex = pageIndex;
+//    });
+//  }
 
-  onTap(int pageIndex) {
-    pageController.animateToPage(
-      pageIndex,
-      duration: Duration(milliseconds: 300),
-      curve: Curves.bounceInOut,
-    );
-  }
+//  onTap(int pageIndex) {
+//    pageController.animateToPage(
+//      pageIndex,
+//      duration: Duration(milliseconds: 300),
+//      curve: Curves.bounceInOut,
+//    );
+//  }
 
   buildAuthScreen() {
     return EventsPage(

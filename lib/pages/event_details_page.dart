@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
 
@@ -46,15 +47,30 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
     super.initState();
   }
 
+  Future<void> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
+              padding: const EdgeInsets.only(
+                bottom: 20.0,
+              ),
               child: FancyButton(
                 color: Color(primaryBlue),
                 label: 'Contact',
@@ -62,15 +78,15 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
               ),
             ),
             widget.eventWebsite == null
-                ? SizedBox(
-                    width: 1,
-                  )
+                ? SizedBox()
                 : Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
+                    padding: const EdgeInsets.only(bottom: 20.0, left: 30),
                     child: FancyButton(
                       color: Color(primaryBlue),
                       label: 'Website',
-                      onPress: () {},
+                      onPress: () => _launchInBrowser(
+                        widget.eventWebsite,
+                      ),
                     ),
                   ),
           ],
@@ -83,7 +99,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    height: 250,
+                    height: 300,
                     width: MediaQuery.of(context).size.width,
                     child: Image.network(
                       widget.mediaUrl,
@@ -150,7 +166,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Text(
-                                '${DateTimeFormat.format(widget.eventDate, format: 'j M')}',
+                                '${DateTimeFormat.format(widget.eventDate, format: 'j M, Y')}',
                                 style: GoogleFonts.quicksand(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,

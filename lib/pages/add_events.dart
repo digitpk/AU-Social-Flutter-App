@@ -25,8 +25,8 @@ class AddEvents extends StatefulWidget {
 class _AddEventsState extends State<AddEvents> {
   bool isUploading = false;
   String eventId = Uuid().v4();
-  DateTime eventDate;
-  TimeOfDay eventTime;
+  DateTime eventDate = DateTime.now();
+  DateTime eventTime;
   File file;
   PickedFile pFile;
   final _picker = ImagePicker();
@@ -57,11 +57,19 @@ class _AddEventsState extends State<AddEvents> {
     );
     if (selectedTime != null) {
       setState(() {
-        eventTime = selectedTime;
+        eventTime = DateTime(
+          eventDate.year,
+          eventDate.month,
+          eventDate.day,
+          selectedTime.hour,
+          selectedTime.minute,
+        );
         sEventTime = eventTime.toString();
         sEventTime = sEventTime.substring(10, 15);
       });
-      print('Event Time: $eventTime');
+      print(DateTimeFormat.format(
+        eventTime,
+      ));
     }
   }
 
@@ -162,7 +170,7 @@ class _AddEventsState extends State<AddEvents> {
     String eventTitle,
     String eventDesc,
     DateTime eventDate,
-    String eventTime,
+    DateTime eventTime,
     String dept,
     String contact,
     String mediaUrl,
@@ -200,7 +208,7 @@ class _AddEventsState extends State<AddEvents> {
       eventTitle: eventTitle,
       eventDesc: eventDescription,
       eventDate: eventDate,
-      eventTime: sEventTime,
+      eventTime: eventTime,
       dept: selectedDepartment,
       eventWebsite: eventWebsite,
       mediaUrl: mediaUrl,
@@ -399,7 +407,7 @@ class _AddEventsState extends State<AddEvents> {
                               buildSelectionContainer(
                                   title: eventTime == null
                                       ? 'Select Time'
-                                      : '$sEventTime',
+                                      : '${DateTimeFormat.format(eventTime, format: 'h:i a')}',
                                   onTapFunc: () => _selectTime(context),
                                   icon: MaterialIcons.access_time),
                             ],
