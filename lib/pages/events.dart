@@ -29,7 +29,7 @@ class _EventsPageState extends State<EventsPage> {
     setState(() {
       isLoading = true;
     });
-    print("Current ID : ${widget.currentUser.id}");
+    print("Current ID : ${googleSignIn.currentUser.id}");
     QuerySnapshot snapshot =
         await eventRef.orderBy('timeStamp', descending: true).getDocuments();
     setState(() {

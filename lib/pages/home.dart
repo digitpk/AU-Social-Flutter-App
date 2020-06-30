@@ -63,7 +63,8 @@ class _HomeState extends State<Home> {
 
   createUserInFirestore() async {
     final GoogleSignInAccount user = googleSignIn.currentUser;
-    DocumentSnapshot doc = await userRef.document(user.id).get();
+    DocumentSnapshot doc =
+        await userRef.document(googleSignIn.currentUser.id).get();
 
     if (!doc.exists) {
       userRef.document(user.id).setData({
@@ -78,7 +79,7 @@ class _HomeState extends State<Home> {
       doc = await userRef.document(user.id).get();
     }
     currentUser = User.fromDocument(doc);
-    print(currentUser.username);
+    print('From Create user in fireStore: ${currentUser.username}');
   }
 
   void login() {
