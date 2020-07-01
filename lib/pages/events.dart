@@ -7,6 +7,7 @@ import 'package:ausocial/widgets/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class EventsPage extends StatefulWidget {
   final User currentUser;
@@ -19,6 +20,8 @@ class EventsPage extends StatefulWidget {
 class _EventsPageState extends State<EventsPage> {
   bool isLoading = false;
   List<EventPost> posts = [];
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
   @override
   void initState() {
     super.initState();
@@ -33,7 +36,7 @@ class _EventsPageState extends State<EventsPage> {
     print("Current ID : ${googleSignIn.currentUser.id ?? 'empty'}");
     QuerySnapshot snapshot = await eventRef
         .orderBy(
-          'timeStamp',
+          'eventDate',
           descending: false,
         )
         .getDocuments();
@@ -42,6 +45,7 @@ class _EventsPageState extends State<EventsPage> {
       posts =
           snapshot.documents.map((doc) => EventPost.fromDocument(doc)).toList();
     });
+    _refreshController.refreshCompleted();
   }
 
   logout() {
@@ -131,10 +135,21 @@ class _EventsPageState extends State<EventsPage> {
                 height: double.infinity,
                 width: double.infinity,
                 color: Colors.white,
-                child: ListView(
-                  children: <Widget>[
-                    buildEventPosts(),
-                  ],
+                child: SmartRefresher(
+                  controller: _refreshController,
+                  enablePullDown: true,
+                  onRefresh: getEventPosts,
+                  header: WaterDropHeader(
+                    waterDropColor: Color(primaryBlue),
+                    idleIcon: Icon(
+                      Icons.airplanemode_active,
+                    ),
+                  ),
+                  child: ListView(
+                    children: <Widget>[
+                      buildEventPosts(),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -1,4 +1,3 @@
-//import 'package:ausocial/models/users.dart';
 import 'package:ausocial/constants.dart';
 import 'package:ausocial/pages/event_details_page.dart';
 import 'package:ausocial/pages/home.dart';
