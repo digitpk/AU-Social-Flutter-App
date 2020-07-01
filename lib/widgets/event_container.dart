@@ -159,12 +159,15 @@ class _EventPostState extends State<EventPost> {
                 children: <Widget>[
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15.0),
-                    child: Container(
-                      height: 250,
-                      width: MediaQuery.of(context).size.width,
-                      child: Image.network(
-                        mediaUrl,
-                        fit: BoxFit.cover,
+                    child: Hero(
+                      tag: '${widget.mediaUrl}',
+                      child: Container(
+                        height: 230,
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.network(
+                          mediaUrl,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),

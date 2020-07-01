@@ -143,6 +143,8 @@ class _EventsPageState extends State<EventsPage> {
                     waterDropColor: Color(primaryBlue),
                     idleIcon: Icon(
                       Icons.airplanemode_active,
+                      color: Colors.white,
+                      size: 10,
                     ),
                   ),
                   child: ListView(
