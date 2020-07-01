@@ -1,7 +1,6 @@
 import 'package:ausocial/constants.dart';
 import 'package:ausocial/models/users.dart';
 import 'package:ausocial/pages/events.dart';
-import 'package:ausocial/widgets/fancy_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -175,10 +174,29 @@ class _HomeState extends State<Home> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 80),
-                child: FancyButton(
-                  label: 'Sign in with Google',
-                  onPress: login,
+                child: RaisedButton(
                   color: Color(primaryBlue),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    side: BorderSide(color: Colors.white, width: 2.0),
+                  ),
+                  padding: const EdgeInsets.all(0.0),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 20,
+                    ),
+                    child: Text(
+                      'Sign in with Google',
+                      style: GoogleFonts.abel(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  onPressed: login,
                 ),
               ),
             ],

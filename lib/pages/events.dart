@@ -31,8 +31,12 @@ class _EventsPageState extends State<EventsPage> {
     });
 
     print("Current ID : ${googleSignIn.currentUser.id ?? 'empty'}");
-    QuerySnapshot snapshot =
-        await eventRef.orderBy('timeStamp', descending: true).getDocuments();
+    QuerySnapshot snapshot = await eventRef
+        .orderBy(
+          'timeStamp',
+          descending: false,
+        )
+        .getDocuments();
     setState(() {
       isLoading = false;
       posts =

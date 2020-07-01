@@ -66,7 +66,10 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
   share(BuildContext context) {
     final RenderBox box = context.findRenderObject();
     Share.share(
-      '${widget.eventTitle}',
+      '\n To Checkout more events like this install Sociau App\n\n'
+      '${widget.eventTitle}\n ${widget.eventDesc}\n On ${DateTimeFormat.format(widget.eventDate, format: 'jS M \'y')} ,'
+      ' ${DateTimeFormat.format(widget.eventTime, format: 'H:i a')},\n Contact : ${widget.contact} \n Website : '
+      '${widget.eventWebsite}  ',
       sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
     );
   }
