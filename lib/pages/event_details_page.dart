@@ -1,3 +1,4 @@
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:ausocial/constants.dart';
 import 'package:ausocial/widgets/fancy_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -46,8 +47,19 @@ class EventDetailsPage extends StatefulWidget {
 
 class _EventDetailsPageState extends State<EventDetailsPage> {
   final CallsAndMessagesService _service = locator<CallsAndMessagesService>();
+  Event event;
   void initState() {
     super.initState();
+  }
+
+  addEventToCalendar() {
+    return event = Event(
+      title: "${widget.eventTitle}",
+      description: '${widget.eventDesc}',
+      location: '${widget.department}',
+      startDate: widget.eventDate,
+      endDate: widget.eventDate,
+    );
   }
 
   Future<void> _launchInBrowser(String url) async {
@@ -192,26 +204,39 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                             ),
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () => share(
-                            context,
-                          ),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(FontAwesome.share_square_o),
-                              SizedBox(
-                                width: 10,
+                        Row(
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () => share(
+                                context,
                               ),
-                              Text(
-                                'Share',
-                                style: GoogleFonts.quicksand(
-                                  color: Colors.grey[500],
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
+                              child: Icon(
+                                Feather.share,
+                                color: Color(primaryBlue),
+                                size: 25,
                               ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+//                              Text(
+//                                'Share',
+//                                style: GoogleFonts.quicksand(
+//                                  color: Colors.grey[500],
+//                                  fontWeight: FontWeight.bold,
+//                                  fontSize: 15,
+//                                ),
+//                              ),
+                            GestureDetector(
+                              onTap: () => Add2Calendar.addEvent2Cal(
+                                  addEventToCalendar()),
+                              child: Icon(
+                                FontAwesome.calendar_plus_o,
+                                color: Color(primaryBlue),
+                                size: 25,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

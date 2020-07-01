@@ -20,7 +20,6 @@ dependencies:
   firebase_auth: ^0.16.0
   google_fonts: ^1.1.0
   flutter_icons: ^1.1.0
-  flutter_snake_navigationbar: ^0.4.0+1
   image_picker: ^0.6.7+2
   cached_network_image: ^2.2.0+1
   path_provider: ^1.6.11
@@ -31,6 +30,7 @@ dependencies:
   get_it: ^1.0.3+2
   share: ^0.6.4+3
   pull_to_refresh: ^1.6.0
+  add_2_calendar: ^1.4.0
 
 dev_dependencies:
   flutter_test:
