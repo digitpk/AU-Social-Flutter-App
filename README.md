@@ -2,6 +2,8 @@
 
 A social event app for anna university
 
+
+![AppImage](assets/images/Sociau.png)
 ## Getting Started
 
 This project is a starting point for a Flutter application.
