@@ -31,6 +31,7 @@ dependencies:
   share: ^0.6.4+3
   pull_to_refresh: ^1.6.0
   add_2_calendar: ^1.4.0
+  flutter_animator: ^2.0.9
 
 dev_dependencies:
   flutter_test:
