@@ -41,8 +41,10 @@ class _EventsPageState extends State<EventsPage> {
           descending: false,
         )
         .getDocuments();
+
     setState(() {
       isLoading = false;
+
       posts =
           snapshot.documents.map((doc) => EventPost.fromDocument(doc)).toList();
     });

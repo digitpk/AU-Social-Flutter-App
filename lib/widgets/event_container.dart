@@ -129,9 +129,9 @@ class _EventPostState extends State<EventPost> {
     return FutureBuilder(
       future: userRef.document(ownerId).get(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return circularProgress();
-        }
+//        if (!snapshot.hasData) {
+//          return circularProgress();
+//        }
 //        User user = User.fromDocument(snapshot.data);
         return Padding(
           padding: const EdgeInsets.all(15.0),
