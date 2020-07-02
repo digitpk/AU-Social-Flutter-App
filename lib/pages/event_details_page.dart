@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share/share.dart';
@@ -99,21 +100,25 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                 padding: const EdgeInsets.only(
                   bottom: 20.0,
                 ),
-                child: FancyButton(
-                  color: Color(primaryBlue),
-                  label: 'Contact',
-                  onPress: () => _service.call(widget.contact),
+                child: BounceInLeft(
+                  child: FancyButton(
+                    color: Color(primaryBlue),
+                    label: 'Contact',
+                    onPress: () => _service.call(widget.contact),
+                  ),
                 ),
               ),
               widget.eventWebsite == null
                   ? SizedBox()
                   : Padding(
                       padding: const EdgeInsets.only(bottom: 20.0, left: 30),
-                      child: FancyButton(
-                        color: Color(primaryBlue),
-                        label: 'Website',
-                        onPress: () => _launchInBrowser(
-                          widget.eventWebsite,
+                      child: BounceInRight(
+                        child: FancyButton(
+                          color: Color(primaryBlue),
+                          label: 'Website',
+                          onPress: () => _launchInBrowser(
+                            widget.eventWebsite,
+                          ),
                         ),
                       ),
                     ),
