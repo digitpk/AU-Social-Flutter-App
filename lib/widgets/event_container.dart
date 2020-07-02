@@ -6,6 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
+import 'package:flutter_animator/widgets/bouncing_entrances/bounce_in_right.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EventPost extends StatefulWidget {
@@ -195,26 +197,28 @@ class _EventPostState extends State<EventPost> {
                   Positioned(
                     right: 0.0,
                     bottom: 20.0,
-                    child: Container(
-                      width: 100,
-                      decoration: BoxDecoration(
-                        color: Color(primaryBlue),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
+                    child: BounceInRight(
+                      child: Container(
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: Color(primaryBlue),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                          ),
                         ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Center(
-                          child: Text(
-                            '${DateTimeFormat.format(
-                              eventDate,
-                              format: 'j M',
-                            )}',
-                            style: GoogleFonts.quicksand(
-                              color: Colors.white,
-                              fontSize: 20.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Center(
+                            child: Text(
+                              '${DateTimeFormat.format(
+                                eventDate,
+                                format: 'j M',
+                              )}',
+                              style: GoogleFonts.quicksand(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                              ),
                             ),
                           ),
                         ),
@@ -224,13 +228,15 @@ class _EventPostState extends State<EventPost> {
                   Positioned(
                     left: 10,
                     bottom: 20.0,
-                    child: Container(
-                      child: Text(
-                        '$eventTitle',
-                        style: GoogleFonts.quicksand(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 30.0,
+                    child: BounceInLeft(
+                      child: Container(
+                        child: Text(
+                          '$eventTitle',
+                          style: GoogleFonts.quicksand(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 30.0,
+                          ),
                         ),
                       ),
                     ),

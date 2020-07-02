@@ -6,6 +6,7 @@ import 'package:ausocial/widgets/event_container.dart';
 import 'package:ausocial/widgets/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -56,8 +57,10 @@ class _EventsPageState extends State<EventsPage> {
     if (isLoading) {
       return circularProgress();
     }
-    return Column(
-      children: posts,
+    return BounceInUp(
+      child: Column(
+        children: posts,
+      ),
     );
   }
 

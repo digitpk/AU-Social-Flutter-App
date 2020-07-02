@@ -90,32 +90,35 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 20.0,
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 20.0,
+                ),
+                child: FancyButton(
+                  color: Color(primaryBlue),
+                  label: 'Contact',
+                  onPress: () => _service.call(widget.contact),
+                ),
               ),
-              child: FancyButton(
-                color: Color(primaryBlue),
-                label: 'Contact',
-                onPress: () => _service.call(widget.contact),
-              ),
-            ),
-            widget.eventWebsite == null
-                ? SizedBox()
-                : Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0, left: 30),
-                    child: FancyButton(
-                      color: Color(primaryBlue),
-                      label: 'Website',
-                      onPress: () => _launchInBrowser(
-                        widget.eventWebsite,
+              widget.eventWebsite == null
+                  ? SizedBox()
+                  : Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0, left: 30),
+                      child: FancyButton(
+                        color: Color(primaryBlue),
+                        label: 'Website',
+                        onPress: () => _launchInBrowser(
+                          widget.eventWebsite,
+                        ),
                       ),
                     ),
-                  ),
-          ],
+            ],
+          ),
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
