@@ -12,9 +12,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class EventsPage extends StatefulWidget {
-  final User currentUser;
+  final User currentUsers;
 
-  EventsPage({this.currentUser});
+  EventsPage({this.currentUsers});
   @override
   _EventsPageState createState() => _EventsPageState();
 }
@@ -108,7 +108,7 @@ class _EventsPageState extends State<EventsPage> {
                           borderRadius: BorderRadius.circular(15),
                           child: Image(
                             image: CachedNetworkImageProvider(
-                              currentUser.photoUrl,
+                              '${googleSignIn.currentUser.photoUrl}',
                             ),
                           ),
                         ),

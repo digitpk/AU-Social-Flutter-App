@@ -105,7 +105,7 @@ class _HomeState extends State<Home> {
 
   buildAuthScreen() {
     return EventsPage(
-      currentUser: currentUser,
+      currentUsers: currentUser,
     );
 //    return Scaffold(
 //      body: PageView(
