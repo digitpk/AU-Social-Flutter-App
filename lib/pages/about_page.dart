@@ -24,7 +24,7 @@ class AboutPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            "One of the first few apps I made while on my journey to learn flutter.",
+                            "One of the first few apps and many to come, \nI made while on my journey to learn flutter.",
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white),
                           ),
@@ -73,7 +73,7 @@ class AboutPage extends StatelessWidget {
                             vertical: 8.0,
                           ),
                           child: Text(
-                            "A passionate learner and obsessive seeker of IT knowledge.",
+                            "Is it Developing Developer or Developer in Development? Anyhow, I'm a Developer!",
                             style: TextStyle(
                               color: Colors.white,
                             ),
