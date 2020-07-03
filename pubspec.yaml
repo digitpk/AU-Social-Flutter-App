@@ -38,15 +38,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/homeBG.jpg
     - assets/images/homeBG.png
-    - assets/images/googleicon.png
-    - assets/images/google_signin.png
 
-  fonts:
-    - family: Sriracha
-      fonts:
-        - asset: assets/fonts/Sriracha-Regular.ttf
-    - family: Heaters
-      fonts:
-        - asset: assets/fonts/Heaters.ttf
+

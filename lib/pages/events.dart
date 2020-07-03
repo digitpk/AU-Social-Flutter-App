@@ -1,5 +1,6 @@
 import 'package:ausocial/constants.dart';
 import 'package:ausocial/models/users.dart';
+import 'package:ausocial/pages/about_page.dart';
 import 'package:ausocial/pages/add_events.dart';
 import 'package:ausocial/pages/home.dart';
 import 'package:ausocial/widgets/event_container.dart';
@@ -24,6 +25,7 @@ class _EventsPageState extends State<EventsPage> {
   List<EventPost> posts = [];
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+
   @override
   void initState() {
     super.initState();
@@ -81,41 +83,52 @@ class _EventsPageState extends State<EventsPage> {
                 bottom: 8,
                 right: 16,
               ),
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Text(
-                        'Events',
-                        style: GoogleFonts.abel(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        width: 40,
-                        height: 40,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image(
-                            image: CachedNetworkImageProvider(
-                              '${googleSignIn.currentUser.photoUrl}',
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: Text(
+                            'Events',
+                            style: GoogleFonts.abel(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
                             ),
                           ),
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: GestureDetector(
+                            onTap: logout,
+                            onDoubleTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AboutPage())),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              width: 40,
+                              height: 40,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image(
+                                  image: CachedNetworkImageProvider(
+                                    '${googleSignIn.currentUser.photoUrl}',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Flexible(

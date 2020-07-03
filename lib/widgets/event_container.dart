@@ -162,7 +162,7 @@ class _EventPostState extends State<EventPost> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15.0),
                     child: Hero(
-                      tag: '${widget.mediaUrl}',
+                      tag: '$mediaUrl',
                       child: Container(
                         height: 230,
                         width: MediaQuery.of(context).size.width,
