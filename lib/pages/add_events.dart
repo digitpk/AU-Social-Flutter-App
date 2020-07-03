@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ausocial/pages/about_page.dart';
 import 'package:date_time_format/date_time_format.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_animator/flutter_animator.dart';
@@ -249,17 +250,21 @@ class _AddEventsState extends State<AddEvents> {
                     ),
                   ),
                   BounceInRight(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      width: 40,
-                      height: 40,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image(
-                          image: CachedNetworkImageProvider(
-                            currentUser.photoUrl,
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => AboutPage())),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        width: 40,
+                        height: 40,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image(
+                            image: CachedNetworkImageProvider(
+                              currentUser.photoUrl,
+                            ),
                           ),
                         ),
                       ),

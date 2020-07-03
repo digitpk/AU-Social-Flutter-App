@@ -100,30 +100,66 @@ class _EventsPageState extends State<EventsPage> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: GestureDetector(
-                            onTap: logout,
-                            onDoubleTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AboutPage())),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              width: 40,
-                              height: 40,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Image(
-                                  image: CachedNetworkImageProvider(
-                                    '${googleSignIn.currentUser.photoUrl}',
-                                  ),
+//                        Padding(
+//                          padding: const EdgeInsets.only(top: 20.0),
+//                          child: GestureDetector(
+//                            onTap: logout,
+//                            onDoubleTap: () => Navigator.push(
+//                                context,
+//                                MaterialPageRoute(
+//                                    builder: (context) => AboutPage())),
+//                            child: Container(
+//                              decoration: BoxDecoration(
+//                                borderRadius: BorderRadius.circular(20),
+//                              ),
+//                              width: 40,
+//                              height: 40,
+//                              child: ClipRRect(
+//                                borderRadius: BorderRadius.circular(15),
+//                                child: Image(
+//                                  image: CachedNetworkImageProvider(
+//                                    '${googleSignIn.currentUser.photoUrl}',
+//                                  ),
+//                                ),
+//                              ),
+//                            ),
+//                          ),
+//                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AddEvents(
+                                              currentUser: currentUser)));
+                                },
+                                icon: Icon(
+                                  Icons.add_circle_outline,
+                                  size: 28,
+                                  color: Color(primaryBlue),
                                 ),
                               ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 20.0,
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  logout();
+                                },
+                                icon: Icon(
+                                  Icons.clear,
+                                  size: 28,
+                                  color: Color(primaryBlue),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
