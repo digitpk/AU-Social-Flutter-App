@@ -4,6 +4,7 @@ import 'package:ausocial/pages/add_events.dart';
 import 'package:ausocial/pages/home.dart';
 import 'package:ausocial/widgets/event_container.dart';
 import 'package:ausocial/widgets/progress.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
@@ -95,41 +96,23 @@ class _EventsPageState extends State<EventsPage> {
                         ),
                       ),
                     ),
-                    Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          AddEvents(currentUser: currentUser)));
-                            },
-                            icon: Icon(
-                              Icons.add_circle_outline,
-                              size: 28,
-                              color: Color(primaryBlue),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        width: 40,
+                        height: 40,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image(
+                            image: CachedNetworkImageProvider(
+                              currentUser.photoUrl,
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 20.0,
-                          ),
-                          child: IconButton(
-                            onPressed: () {
-                              logout();
-                            },
-                            icon: Icon(
-                              Icons.clear,
-                              size: 28,
-                              color: Color(primaryBlue),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
